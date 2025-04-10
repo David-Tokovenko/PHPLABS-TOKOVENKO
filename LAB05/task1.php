@@ -2,7 +2,7 @@
 <html>
 <head><title>Множення чисел</title></head>
 <body>
-<h3>Множення двох чисел (GET)</h3>
+<h3>Множення двох чисел </h3>
 
 <form method="get">
     Число 1: <input type="number" name="num1" required><br>
