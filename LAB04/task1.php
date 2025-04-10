@@ -1,12 +1,9 @@
-$days = [
-"Monday" => "Понеділок",
-"Tuesday" => "Вівторок",
-"Wednesday" => "Середа",
-"Thursday" => "Четвер",
-"Friday" => "П'ятниця",
-"Saturday" => "Субота",
-"Sunday" => "Неділя"
-];
-foreach ($days as $english => $ukrainian) {
-echo "$english - $ukrainian<br>";
+function factorial($n) {
+if ($n <= 1) {
+return 1;
+}
+return $n * factorial($n - 1);
+}
+for ($i = 1; $i <= 5; $i++) {
+echo "Факторіал $i: " . factorial($i) . "<br>";
 }
