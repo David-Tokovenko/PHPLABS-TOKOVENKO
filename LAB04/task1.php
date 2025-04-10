@@ -1,11 +1,17 @@
 <?php
-function factorial($n) {
-    if ($n <= 1) {
-    return 1;
+$numbers = [3, 8, 5, 12, 7, 6, 1, 10, 9, 2];
+
+$even = []; // парні
+$odd = [];  // непарні
+
+foreach ($numbers as $num) {
+    if ($num % 2 == 0) {
+        $even[] = $num;
+    } else {
+        $odd[] = $num;
     }
-    return $n * factorial($n - 1);
-    }
-    for ($i = 1; $i <= 5; $i++) {
-    echo "Факторіал $i: " . factorial($i) . "<br>";
-    }
+}
+
+echo "Парні числа: " . implode(", ", $even) . "<br>";
+echo "Непарні числа: " . implode(", ", $odd);
 ?>
