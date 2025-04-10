@@ -1,12 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Піднесення до степеня</title></head>
+<body>
+<form method="post">
+    Основа: <input type="number" name="base" required><br>
+    Степінь: <input type="number" name="exponent" required><br>
+    <input type="submit" value="Обчислити">
+</form>
+
 <?php
 function power($base, $exponent) {
-    $result = 1;
-    for ($i = 1; $i <= $exponent; $i++) {
-        $result *= $base;
-    }
-    return $result;
+    return pow($base, $exponent); // або: return $base ** $exponent;
 }
 
-// Приклад виклику
-echo "2 у степені 5 = " . power(2, 5); // Виведе 32
+if (isset($_POST['base']) && isset($_POST['exponent'])) {
+    $base = (float)$_POST['base'];
+    $exp = (int)$_POST['exponent'];
+
+    $result = power($base, $exp);
+    echo "<p>$base у степені $exp = <strong>$result</strong></p>";
+}
 ?>
+</body>
+</html>
