@@ -16,7 +16,7 @@ if (isset($_POST['url'])) {
     if (filter_var($url, FILTER_VALIDATE_URL)) {
         echo "<p>✅ <strong>$url</strong> — валідний URL.</p>";
     } else {
-        echo "<p>❌ <strong>$url</strong> — НЕ валідний URL.</p>";
+        echo "<p>❌ <strong>$url</strong> — інвалідний URL.</p>";
     }
 }
 ?>
