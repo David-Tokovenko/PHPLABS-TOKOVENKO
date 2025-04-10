@@ -9,6 +9,7 @@
             "pathMappings": {
                 "/var/www/html": "${workspaceFolder}"
             },
+            
             "log": true
         }
     ]
