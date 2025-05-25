@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Додати студента</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <h2>Додати нового студента</h2>
+    <form method="post">
+        Ім'я: <input type="text" name="name" required><br><br>
+        Email: <input type="email" name="email" required><br><br>
+        Вік: <input type="number" name="age" required><br><br>
+        <input type="submit" value="Додати">
+    </form>
+
+<?php
+// Підключення до БД
+$host = 'localhost';
+$user = 'root'; // заміни за потреби
+$password = ''; // заміни за потреби
+$dbname = 'students_db';
+
+$conn = new mysqli($host, $user, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Помилка з'єднання: " . $conn->connect_error);
+}
+
+// Якщо форма відправлена
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Отримання значень
+    $name = $conn->real_escape_string($_POST['name']);
+    $email = $conn->real_escape_string($_POST['email']);
+    $age = (int)$_POST['age'];
+
+    // SQL-запит INSERT
+    $sql = "INSERT INTO students (name, email, age) VALUES ('$name', '$email', $age)";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "<p style='color:green;'>✅ Студента успішно додано!</p>";
+    } else {
+        echo "<p style='color:red;'>❌ Помилка: " . $conn->error . "</p>";
+    }
+}
+
+$conn->close();
+?>
+</body>
+</html>
