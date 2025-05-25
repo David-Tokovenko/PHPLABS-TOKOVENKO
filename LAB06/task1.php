@@ -4,7 +4,7 @@ $username = "your_database_username"; // Замініть на ваше ім'я 
 $password = "your_database_password"; // Замініть на ваш пароль бази даних
 
 // Створюємо підключення до сервера MySQL
-$conn = new mysqli($servername, $username, $password);
+$conn = new mysqli($servername, $username, $password, null, 3306); // Замініть 3306 на ваш порт, якщо він відрізняється
 
 // Перевіряємо підключення
 if ($conn->connect_error) {
