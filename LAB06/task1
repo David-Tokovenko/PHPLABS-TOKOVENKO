@@ -1,23 +1,69 @@
 <!DOCTYPE html>
 <html>
-<head><title>Множення чисел</title></head>
+<head>
+    <title>Додати нового студента</title>
+</head>
 <body>
-<h3>Множення двох чисел (GET)</h3>
-
-<form method="get">
-    Число 1: <input type="number" name="num1" required><br>
-    Число 2: <input type="number" name="num2" required><br>
-    <input type="submit" value="Множити">
-</form>
-
-<?php
-if (isset($_GET['num1']) && isset($_GET['num2'])) {
-    $a = (float)$_GET['num1'];
-    $b = (float)$_GET['num2'];
-    $result = $a * $b;
-
-    echo "<p>Результат: $a × $b = <strong>$result</strong></p>";
-}
-?>
+    <h1>Додати нового студента</h1>
+    <form action="insert_student.php" method="post">
+        <div>
+            <label for="name">Ім'я:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <br>
+        <div>
+            <label for="email">Електронна пошта:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <br>
+        <button type="submit">Додати студента</button>
+    </form>
 </body>
 </html>
+<?php
+// Дані для підключення до бази даних
+$servername = "localhost"; // Зазвичай "localhost"
+$username = "your_database_username"; // Замініть на ваше ім'я користувача бази даних
+$password = "your_database_password"; // Замініть на ваш пароль бази даних
+$dbname = "your_database_name"; // Замініть на назву вашої бази даних
+
+// Перевіряємо, чи були відправлені дані методом POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Отримуємо значення з форми
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+
+    try {
+        // Створюємо підключення до MySQL
+        $conn = new mysqli($servername, $username, $password, $dbname);
+
+        // Перевіряємо підключення
+        if ($conn->connect_error) {
+            die("Помилка підключення до бази даних: " . $conn->connect_error);
+        }
+
+        // Готуємо SQL запит для вставки даних
+        $sql = "INSERT INTO students (name, email) VALUES (?, ?)";
+
+        // Готуємо та прив'язуємо параметри
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ss", $name, $email);
+
+        // Виконуємо запит
+        if ($stmt->execute()) {
+            echo "Нового студента успішно додано до бази даних.";
+        } else {
+            echo "Помилка при додаванні студента: " . $stmt->error;
+        }
+
+        // Закриваємо з'єднання
+        $stmt->close();
+        $conn->close();
+
+    } catch (Exception $e) {
+        echo "Виникла помилка: " . $e->getMessage();
+    }
+} else {
+    echo "Будь ласка, скористайтеся формою для додавання студента.";
+}
+?>
