@@ -1,49 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Додати студента</title>
-    <meta charset="UTF-8">
-</head>
+<head><title>Множення чисел</title></head>
 <body>
-    <h2>Додати нового студента</h2>
-    <form method="post">
-        Ім'я: <input type="text" name="name" required><br><br>
-        Email: <input type="email" name="email" required><br><br>
-        Вік: <input type="number" name="age" required><br><br>
-        <input type="submit" value="Додати">
-    </form>
+<h3>Множення двох чисел (GET)</h3>
+
+<form method="get">
+    Число 1: <input type="number" name="num1" required><br>
+    Число 2: <input type="number" name="num2" required><br>
+    <input type="submit" value="Множити">
+</form>
 
 <?php
-// Підключення до БД
-$host = 'localhost';
-$user = 'root'; // заміни за потреби
-$password = ''; // заміни за потреби
-$dbname = 'students_db';
+if (isset($_GET['num1']) && isset($_GET['num2'])) {
+    $a = (float)$_GET['num1'];
+    $b = (float)$_GET['num2'];
+    $result = $a * $b;
 
-$conn = new mysqli($host, $user, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Помилка з'єднання: " . $conn->connect_error);
+    echo "<p>Результат: $a × $b = <strong>$result</strong></p>";
 }
-
-// Якщо форма відправлена
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Отримання значень
-    $name = $conn->real_escape_string($_POST['name']);
-    $email = $conn->real_escape_string($_POST['email']);
-    $age = (int)$_POST['age'];
-
-    // SQL-запит INSERT
-    $sql = "INSERT INTO students (name, email, age) VALUES ('$name', '$email', $age)";
-
-    if ($conn->query($sql) === TRUE) {
-        echo "<p style='color:green;'>✅ Студента успішно додано!</p>";
-    } else {
-        echo "<p style='color:red;'>❌ Помилка: " . $conn->error . "</p>";
-    }
-}
-
-$conn->close();
 ?>
 </body>
 </html>
