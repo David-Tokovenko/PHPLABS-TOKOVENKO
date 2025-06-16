@@ -11,14 +11,6 @@ if ($conn->connect_error) {
     die("Помилка підключення: " . $conn->connect_error);
 }
 
-// SQL запит для створення бази даних "BookStore", якщо її не існує
-$sql_create_db = "CREATE DATABASE IF NOT EXISTS BookStore";
-if ($conn->query($sql_create_db) === TRUE) {
-    echo "Базу даних 'BookStore' створено успішно або вона вже існує.<br>";
-} else {
-    echo "Помилка при створенні бази даних: " . $conn->error . "<br>";
-}
-
 // Обираємо базу даних "BookStore"
 $conn->select_db("BookStore");
 
